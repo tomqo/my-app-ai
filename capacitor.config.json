@@ -1,7 +1,7 @@
 {
   "appId": "com.myappai.chat",
   "appName": "AI Chat",
-  "webDir": ".",
+  "webDir": "www",
   "server": {
     "androidScheme": "https"
   },
