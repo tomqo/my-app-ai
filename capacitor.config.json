@@ -1,0 +1,11 @@
+{
+  "appId": "com.myappai.chat",
+  "appName": "AI Chat",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always"
+  }
+}
