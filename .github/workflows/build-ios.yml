@@ -16,7 +16,9 @@ jobs:
           node-version: 20
 
       - name: Install Capacitor
-        run: npm install -g @capacitor/cli @capacitor/core
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
 
       - name: Prepare web assets
         run: |
