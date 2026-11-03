@@ -32,14 +32,16 @@ jobs:
       - name: Sync iOS
         run: npx cap sync ios
 
-      - name: Build IPA
+      - name: Build IPA (unsigned)
         run: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace \
             -scheme App \
             -configuration Release \
             -archivePath build/App.xcarchive \
-            -allowProvisioningUpdates \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
             archive
 
       - name: Export IPA
@@ -50,15 +52,19 @@ jobs:
           <plist version="1.0">
           <dict>
             <key>method</key>
-            <string>app-store</string>
+            <string>development</string>
             <key>destination</key>
             <string>export</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>stripSwiftSymbols</key>
+            <true/>
           </dict></plist>' > build/ExportOptions.plist
           xcodebuild -exportArchive \
             -archivePath build/App.xcarchive \
             -exportPath build/ipa \
             -exportOptionsPlist build/ExportOptions.plist \
-            -allowProvisioningUpdates
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
